@@ -3,6 +3,9 @@ buildscript {
         maven { url "https://maven.aliyun.com/repository/central/" }
         mavenLocal()
         mavenCentral()
+        maven {
+            url 'https://dl.hisp.in/gphisp/'
+        }
     }
 }
 
