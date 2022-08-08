@@ -28,6 +28,7 @@ public class MainActivity2 extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
                 String url = request.getUrl().toString();
                 Log.d("url", url);
+                //支持google play
                 if (StringUtils.startsWith(url, "market:")
                         || StringUtils.startsWith(url, "https://play.google.com/store/")
                         || StringUtils.startsWith(url, "http://play.google.com/store/")) {
@@ -38,6 +39,12 @@ public class MainActivity2 extends AppCompatActivity {
                 }
                 return super.shouldOverrideUrlLoading(view, request);
             }
+        });
+        //下载处理
+        webView.setDownloadListener((url, userAgent, contentDisposition, mimetype, contentLength) -> {
+            Uri uri = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         });
         webView.loadUrl(CommonUtils.slotUrlWithGaid);
         WebSettings webSettings = webView.getSettings();
