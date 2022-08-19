@@ -3,9 +3,17 @@ package com.example.appluck_integration_guide;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.webkit.DownloadListener;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.appluck_integration_guide.util.WebViewUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -39,5 +47,44 @@ public class MainActivity extends AppCompatActivity {
             // 第一个参数为intent
             startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        WebViewClient webViewClient = new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
+                String url = request.getUrl().toString();
+                Log.d("url", url);
+                //支持google play
+                if (StringUtils.startsWith(url, "market:")
+                        || StringUtils.startsWith(url, "https://play.google.com/store/")
+                        || StringUtils.startsWith(url, "http://play.google.com/store/")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                    return true;
+                }
+                return super.shouldOverrideUrlLoading(view, request);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                Log.e("webViewClient.","onPageFinished....");
+            }
+        };
+        DownloadListener downloadListener = new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        };
+        WebViewUtil.init(getApplicationContext(),webViewClient,downloadListener);
+        WebViewUtil.preload(CommonUtils.slotUrlWithGaid);
+        Log.e("main.","onStart....");
     }
 }

@@ -1,18 +1,11 @@
 package com.example.appluck_integration_guide;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.webkit.WebViewClientCompat;
 
-import org.apache.commons.lang3.StringUtils;
+import com.example.appluck_integration_guide.util.WebViewUtil;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -21,8 +14,9 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
-        webView = findViewById(R.id.webview);
+        //setContentView(R.layout.activity_main2);
+        setContentView(WebViewUtil.webView);
+        /*webView = findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClientCompat() {
             @Override
             public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
@@ -50,15 +44,15 @@ public class MainActivity2 extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true); // 允许javascript执行
         webSettings.setDomStorageEnabled(true);// 打开本地缓存提供JS调用,至关重要，开启DOM缓存，开启LocalStorage存储
-
+*/
     }
 
 
     @Override
     public void onBackPressed() {
         //拦截系统返回事件
-        if (webView.canGoBack()) {
-            webView.goBack();
+        if (WebViewUtil.webView.canGoBack()) {
+            WebViewUtil.webView.goBack();
             return;
         }
         super.onBackPressed();
