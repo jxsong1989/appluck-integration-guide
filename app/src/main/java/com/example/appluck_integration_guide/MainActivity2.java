@@ -1,6 +1,7 @@
 package com.example.appluck_integration_guide;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,5 +57,13 @@ public class MainActivity2 extends AppCompatActivity {
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("main2.", "onDestroy....");
+        //WebViewUtil.webView.destroy();
+        //WebViewUtil.webView = null;
     }
 }
