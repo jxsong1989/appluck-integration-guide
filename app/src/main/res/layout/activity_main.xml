@@ -7,23 +7,35 @@
     tools:context="com.example.appluck_integration_guide.MainActivity">
 
     <Button
+        android:id="@+id/btn_chrome"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="48dp"
+        android:text="chrom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_webView" />
+
+    <Button
         android:id="@+id/btn_webView"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="448dp"
         android:text="webview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_chrome"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="50dp"
-        android:text="chrom"
+    <EditText
+        android:id="@+id/editUrl"
+        android:layout_width="320dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="164dp"
+        android:ems="10"
+        android:gravity="bottom|right"
+        android:inputType="textUri|textMultiLine"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_webView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

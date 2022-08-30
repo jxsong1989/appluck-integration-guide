@@ -3,7 +3,9 @@ package com.example.appluck_integration_guide;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button btn_webView = findViewById(R.id.btn_webView);
         Button btn_chrome = findViewById(R.id.btn_chrome);
+        EditText urlEdit = findViewById(R.id.editUrl);
         if (StringUtils.isBlank(CommonUtils.slotUrlWithGaid)) {
             new Thread(() -> {
                 String url = CommonUtils.getUrl(getApplicationContext());
@@ -24,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
             }).start();
         }
         btn_webView.setOnClickListener(v -> {
+            String s = urlEdit.getText().toString();
+            Log.d("ssssssss", s);
+            CommonUtils.setUrl(getApplicationContext(),s);
             // 第一个为当前类的上下文参数，不能直接使用this，需要使用类名.this
             // 第二个参数为目标文件的反射对象
             Intent intent = new Intent(MainActivity.this, MainActivity2.class);
@@ -32,9 +38,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btn_chrome.setOnClickListener(v -> {
+            String s = urlEdit.getText().toString();
+            Log.d("ssssssss", s);
+            CommonUtils.setUrl(getApplicationContext(),s);
             // 第一个为当前类的上下文参数，不能直接使用this，需要使用类名.this
             // 第二个参数为目标文件的反射对象
-            Uri uri = Uri.parse(CommonUtils.slotUrlWithGaid);
+            Uri uri = Uri.parse(CommonUtils.url);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             // 第一个参数为intent
             startActivity(intent);

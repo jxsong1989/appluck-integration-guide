@@ -15,6 +15,8 @@ public class CommonUtils {
     //广告位链接
     private final static String SLOT_URL = "https://aios.soinluck.com/scene?sk=q842c2e079a1b32c8&lzdid={gaid}";
 
+    public static String url = "";
+
     public static String slotUrlWithGaid;
 
     //获取 GAID
@@ -46,6 +48,11 @@ public class CommonUtils {
         return StringUtils.replace(SLOT_URL, "{gaid}", gaid);
     }
 
+    public static String setUrl(Context context,String u) {
+        String gaid = getGAID(context);
+        String replace = StringUtils.replace(u, "{gaid}", gaid);
+        return url = replace;
+    }
     public static void setSlotUrlWithGaid(String slotUrlWithGaid) {
         CommonUtils.slotUrlWithGaid = slotUrlWithGaid;
     }
