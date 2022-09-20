@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/btn_webView_preload"
         android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginStart="128dp"
         android:layout_marginTop="40dp"
         android:enabled="true"
@@ -22,7 +22,7 @@
     <Button
         android:id="@+id/btn_chrome"
         android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginStart="128dp"
         android:layout_marginTop="180dp"
         android:text="chrome"
@@ -32,7 +32,7 @@
     <Button
         android:id="@+id/btn_webview"
         android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginStart="128dp"
         android:layout_marginTop="40dp"
         android:text="WebView"
