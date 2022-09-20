@@ -35,16 +35,11 @@ public class MainActivity extends AppCompatActivity {
             }).start();
         }
         btn_webView.setOnClickListener(v -> {
-            // 第一个为当前类的上下文参数，不能直接使用this，需要使用类名.this
-            // 第二个参数为目标文件的反射对象
-            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-            // 第一个参数为intent
+            Intent intent = new Intent(MainActivity.this, WebViewPreLoadActivity.class);
             startActivity(intent);
         });
 
         btn_chrome.setOnClickListener(v -> {
-            // 第一个为当前类的上下文参数，不能直接使用this，需要使用类名.this
-            // 第二个参数为目标文件的反射对象
             Uri uri = Uri.parse(CommonUtils.slotUrlWithGaid);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             // 第一个参数为intent
@@ -86,10 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         Button btn_webView = findViewById(R.id.btn_webView);
                         int visibility = btn_webView.getVisibility();
                         Log.e("visibility", visibility + "");
-                        /*boolean enabled = btn_webView.isEnabled();
-                        if (!enabled && StringUtils.contains(url, "/dist/")) {
-                            btn_webView.setEnabled(true);
-                        }*/
+                        //目标页面加载完成后展示组件
                         if (visibility == View.INVISIBLE && StringUtils.contains(url, "/dist/")) {
                             try {
                                 Thread.sleep(10);
@@ -99,9 +91,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }
-
-
                 };
+                //支持下载事件
                 DownloadListener downloadListener = new DownloadListener() {
                     @Override
                     public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
