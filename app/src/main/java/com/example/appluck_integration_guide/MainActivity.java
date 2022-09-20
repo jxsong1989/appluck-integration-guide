@@ -26,26 +26,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btn_webView = findViewById(R.id.btn_webView);
+        Button btn_webView_preLoad = findViewById(R.id.btn_webView_preload);
         Button btn_chrome = findViewById(R.id.btn_chrome);
+        Button tbn_webView = findViewById(R.id.btn_webview);
         if (StringUtils.isBlank(CommonUtils.slotUrlWithGaid)) {
             new Thread(() -> {
                 String url = CommonUtils.getUrl(getApplicationContext());
                 CommonUtils.setSlotUrlWithGaid(url);
+                //打开预加载web view
+                btn_webView_preLoad.setOnClickListener(v -> {
+                    Intent intent = new Intent(MainActivity.this, WebViewPreLoadActivity.class);
+                    startActivity(intent);
+                });
+
+                //打开web view
+                tbn_webView.setOnClickListener(v -> {
+                    Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+                    startActivity(intent);
+                });
+
+                //打开浏览器
+                btn_chrome.setOnClickListener(v -> {
+                    Uri uri = Uri.parse(CommonUtils.slotUrlWithGaid);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    // 第一个参数为intent
+                    startActivity(intent);
+                });
+                Log.e("main.", "onCreate....");
             }).start();
         }
-        btn_webView.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, WebViewPreLoadActivity.class);
-            startActivity(intent);
-        });
-
-        btn_chrome.setOnClickListener(v -> {
-            Uri uri = Uri.parse(CommonUtils.slotUrlWithGaid);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            // 第一个参数为intent
-            startActivity(intent);
-        });
-        Log.e("main.", "onCreate....");
     }
 
     @Override
@@ -78,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                             return;
                         }
                         Log.e("webViewClient.onPageFinished", view.getProgress() + "  " + url);
-                        Button btn_webView = findViewById(R.id.btn_webView);
+                        Button btn_webView = findViewById(R.id.btn_webView_preload);
                         int visibility = btn_webView.getVisibility();
                         Log.e("visibility", visibility + "");
                         //目标页面加载完成后展示组件
