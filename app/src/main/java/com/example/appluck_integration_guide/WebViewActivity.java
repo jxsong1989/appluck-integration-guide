@@ -8,14 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appluck_integration_guide.util.WebViewUtil;
 
-public class WebViewActivity2 extends AppCompatActivity {
+public class WebViewActivity extends AppCompatActivity {
 
     private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main2);
         setContentView(WebViewUtil.webView);
         /*webView = findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClientCompat() {
