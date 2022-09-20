@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appluck_integration_guide.util.WebViewUtil;
 
-public class MainActivity2 extends AppCompatActivity {
+public class WebViewActivity2 extends AppCompatActivity {
 
     private WebView webView;
 

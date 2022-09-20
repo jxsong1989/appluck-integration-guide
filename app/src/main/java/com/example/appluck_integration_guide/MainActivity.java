@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         btn_webView.setOnClickListener(v -> {
             // 第一个为当前类的上下文参数，不能直接使用this，需要使用类名.this
             // 第二个参数为目标文件的反射对象
-            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            Intent intent = new Intent(MainActivity.this, WebViewActivity2.class);
             // 第一个参数为intent
             startActivity(intent);
         });
