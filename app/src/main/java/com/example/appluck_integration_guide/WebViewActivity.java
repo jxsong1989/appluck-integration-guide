@@ -1,7 +1,6 @@
 package com.example.appluck_integration_guide;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.webkit.WebViewClientCompat;
 
-import org.apache.commons.lang3.StringUtils;
+import com.example.appluck_integration_guide.util.WebViewUtil;
 
 public class WebViewActivity extends AppCompatActivity {
     private WebView webView;
@@ -29,27 +28,9 @@ public class WebViewActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     String url = request.getUrl().toString();
-                    Log.d("url", url);
-                    //支持google play
                     try {
-                        //支持google play
-                        if (StringUtils.startsWith(url, "market:")
-                                || StringUtils.startsWith(url, "https://play.google.com/store/")
-                                || StringUtils.startsWith(url, "http://play.google.com/store/")) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse(url));
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            return true;
-                        } else if (!StringUtils.startsWith(url, "http://")
-                                && !StringUtils.startsWith(url, "https://")) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            ActivityInfo activityInfo = intent.resolveActivityInfo(getPackageManager(), 0);
-                            if (activityInfo.exported) {
-                                intent.setData(Uri.parse(url));
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                            }
+                        Log.d("appluck guide", "url: " + url);
+                        if (WebViewUtil.openIntent(url, WebViewActivity.this)) {
                             return true;
                         }
                     } catch (Throwable e) {
